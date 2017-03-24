@@ -34,7 +34,30 @@ public class MyMouseAdapter extends MouseAdapter {
 			myPanel.repaint();
 			break;
 		case 3:		//Right mouse button
-			//Do nothing
+			Component c2 = e.getComponent();
+			while (!(c2 instanceof JFrame)) {
+				c2 = c2.getParent();
+				if (c2 == null) {
+					return;
+				}
+			}
+			myFrame = (JFrame) c2;
+			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+			myInsets = myFrame.getInsets();
+			x1 = myInsets.left;
+			y1 = myInsets.top;
+			e.translatePoint(-x1, -y1);
+			x = e.getX();
+			y = e.getY();
+			myPanel.x = x;
+			myPanel.y = y;
+			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
+			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
+			myPanel.repaint();
+			
+			//paints a square red meaning a flag
+			myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+			myPanel.repaint();
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
