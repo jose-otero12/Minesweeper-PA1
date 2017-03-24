@@ -38,8 +38,8 @@ public class MyPanel extends JPanel {
 		}
 		// Assigns the mines to different places
 		for (int i = 0; i < numberOfMines; i++ ){
-			int randX = new Random().nextInt(TOTAL_COLUMNS-1);
-			int randY = new Random().nextInt(TOTAL_ROWS-1);
+			int randX = new Random().nextInt(TOTAL_COLUMNS);
+			int randY = new Random().nextInt(TOTAL_ROWS);
 	//		numberOfMines[i] = rand;
 			if (mines[randX][randY]!=1){
 			mines[randX][randY] = 1;
@@ -144,7 +144,7 @@ public class MyPanel extends JPanel {
 		if (x == 0 && y == TOTAL_ROWS - 1) {    //The lower left extra cell
 			return x;
 		}
-		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS ) {   //Outside the rest of the grid
+		if (x < 0 || x > TOTAL_COLUMNS - 1 || y < 0 || y > TOTAL_ROWS - 1 ) {   //Outside the rest of the grid
 			return -1;
 		}
 		return x;
