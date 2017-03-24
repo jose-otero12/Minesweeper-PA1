@@ -7,8 +7,10 @@ import java.util.Random;
 
 import javax.swing.JFrame;
 
+
 public class MyMouseAdapter extends MouseAdapter {
 	private Random generator = new Random();
+	private static int counter = 0;
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
@@ -115,12 +117,14 @@ public class MyMouseAdapter extends MouseAdapter {
 						}//
 						else{
 							// Verificar si hay minas alrededor de donde se hizo click y poner un un numero.
-							int counter = 0;
+							
 							for (int i = myPanel.mouseDownGridX -1; i <= myPanel.mouseDownGridX +1; i++ ) {
 								for (int j = myPanel.mouseDownGridY - 1; j <= myPanel.mouseDownGridY +1; j++) {
 									if (myPanel.mines[i][j] == 1) {
+										
 										counter++;
 										System.out.println(counter);
+										
 									}
 								}
 							}
@@ -165,4 +169,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		}
 	}
+	public int getCounter(){
+		return this.counter;
+	}
+	
 }
