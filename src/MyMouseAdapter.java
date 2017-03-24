@@ -112,7 +112,7 @@ public class MyMouseAdapter extends MouseAdapter {
 								}
 								
 							}
-						}
+						}//
 						else{
 							Color lightGray = Color.LIGHT_GRAY;
 				
