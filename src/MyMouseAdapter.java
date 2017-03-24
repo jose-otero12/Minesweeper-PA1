@@ -76,7 +76,20 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						
+						for(int i=0; i<(MyPanel.getTotalColumns()-1);i++){
+							for(int j=0; j<(MyPanel.getTotalRows()-1);j++){
+								Color black = Color.BLACK;
+								
+								if(myPanel.mines[i][j] == 1){
+									myPanel.colorArray[i][j] = black;
+									myPanel.repaint();
+									
+							}
+								
+								
+							}
+							
+						}
 							Color newColor = null;
 							switch (generator.nextInt(5)) {
 							case 0:
@@ -105,6 +118,7 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
+			
 			
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)

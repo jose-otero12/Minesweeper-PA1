@@ -19,7 +19,7 @@ public class MyPanel extends JPanel {
 	public int mouseDownGridY = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int[] numberOfMines = new int [10];
-	public int[] mines = new int[TOTAL_COLUMNS*TOTAL_ROWS];
+	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -38,9 +38,15 @@ public class MyPanel extends JPanel {
 		}
 		// Assigns the mines to different places
 		for (int i = 0; i < 10; i++ ){
-			int rand = new Random().nextInt(TOTAL_COLUMNS*TOTAL_ROWS);
-			numberOfMines[i] = rand;
-			mines[rand] = 1;
+			int randX = new Random().nextInt(TOTAL_COLUMNS-1);
+			int randY = new Random().nextInt(TOTAL_ROWS-1);
+	//		numberOfMines[i] = rand;
+			if (mines[randX][randY]!=1){
+			mines[randX][randY] = 1;
+			}
+			else{
+				i--;
+				}
 		}
 	}
 	public void paintComponent(Graphics g) {
@@ -167,5 +173,13 @@ public class MyPanel extends JPanel {
 			return -1;
 		}
 		return y;
+	}
+	public static int getTotalRows(){
+		
+		return TOTAL_ROWS;
+	}
+	public static int getTotalColumns(){
+		
+		return TOTAL_COLUMNS;
 	}
 }
