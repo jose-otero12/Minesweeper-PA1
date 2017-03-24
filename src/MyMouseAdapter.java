@@ -115,6 +115,25 @@ public class MyMouseAdapter extends MouseAdapter {
 						}
 						else{
 							Color lightGray = Color.LIGHT_GRAY;
+				
+								for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
+									myPanel.colorArray[o][myPanel.mouseDownGridY] = lightGray;
+									myPanel.repaint();
+								}
+								for(int p = myPanel.mouseDownGridY; p>=0 && myPanel.mines[myPanel.mouseDownGridX][p]==0; p--){
+									myPanel.colorArray[myPanel.mouseDownGridX][p] = lightGray;
+									myPanel.repaint();
+								}
+								for(int q = myPanel.mouseDownGridX; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][myPanel.mouseDownGridY]==0 ; q++){
+									myPanel.colorArray[q][myPanel.mouseDownGridY] = lightGray;
+									myPanel.repaint();
+								}
+								for(int r = myPanel.mouseDownGridY; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[myPanel.mouseDownGridX][r]==0; r++){
+									myPanel.colorArray[myPanel.mouseDownGridX][r] = lightGray;
+									myPanel.repaint();
+								}
+		
+							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = lightGray;
 							myPanel.repaint();
 							
