@@ -76,21 +76,22 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						for(int i=0; i<(MyPanel.getTotalColumns()-1);i++){
-							for(int j=0; j<(MyPanel.getTotalRows()-1);j++){
-								Color black = Color.BLACK;
-								
-								if(myPanel.mines[i][j] == 1){
-									myPanel.colorArray[i][j] = black;
-									myPanel.repaint();
+						if(myPanel.mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY]==1){
+							for(int i=0; i<(MyPanel.getTotalColumns()-1);i++){
+								for(int j=0; j<(MyPanel.getTotalRows()-1);j++){
+									Color black = Color.BLACK;
 									
-							}
+									if(myPanel.mines[i][j] == 1){
+										myPanel.colorArray[i][j] = black;
+										myPanel.repaint();
+									}
 								
+								}
 								
 							}
-							
 						}
-							Color newColor = null;
+						
+							/*Color newColor = null;
 							switch (generator.nextInt(5)) {
 							case 0:
 								newColor = Color.YELLOW;
@@ -109,7 +110,7 @@ public class MyMouseAdapter extends MouseAdapter {
 								break;
 							}
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
-							myPanel.repaint();
+							myPanel.repaint();*/
 						
 					}
 				}
