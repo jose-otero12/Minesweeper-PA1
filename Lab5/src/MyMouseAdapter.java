@@ -34,7 +34,33 @@ public class MyMouseAdapter extends MouseAdapter {
 			myPanel.repaint();
 			break;
 		case 3:		//Right mouse button
-			//Do nothing
+			Component c2 = e.getComponent();
+			while (!(c2 instanceof JFrame)) {
+				c2 = c2.getParent();
+				if (c2 == null) {
+					return;
+				}
+			}
+			myFrame = (JFrame) c2;
+			myPanel = (MyPanel) myFrame.getContentPane().getComponent(0);
+			myInsets = myFrame.getInsets();
+			x1 = myInsets.left;
+			y1 = myInsets.top;
+			e.translatePoint(-x1, -y1);
+			x = e.getX();
+			y = e.getY();
+			myPanel.x = x;
+			myPanel.y = y;
+			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
+			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
+			myPanel.repaint();
+			
+			//paints a square red meaning a flag
+			myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+			myPanel.repaint();
+			
+			
+		
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
@@ -76,10 +102,20 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						if ((gridX == 0) || (gridY == 0)) {
-							//On the left column and on the top row... do nothing
-						} else {
-							//On the grid other than on the left column and on the top row:
+						for(int i=0; i<(MyPanel.getTotalColumns()-1);i++){
+							for(int j=0; j<(MyPanel.getTotalRows()-1);j++){
+								Color black = Color.BLACK;
+								
+								if(myPanel.mines[i][j] == 1){
+									myPanel.colorArray[i][j] = black;
+									myPanel.repaint();
+									
+							}
+								
+								
+							}
+							
+						}
 							Color newColor = null;
 							switch (generator.nextInt(5)) {
 							case 0:
@@ -100,7 +136,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = newColor;
 							myPanel.repaint();
-						}
+						
 					}
 				}
 			}
@@ -108,6 +144,8 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		case 3:		//Right mouse button
 			//Do nothing
+			
+			
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
