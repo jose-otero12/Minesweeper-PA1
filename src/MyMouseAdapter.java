@@ -114,6 +114,18 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 						}//
 						else{
+							// Verificar si hay minas alrededor de donde se hizo click y poner un un numero.
+							int counter = 0;
+							for (int i = myPanel.mouseDownGridX -1; i <= myPanel.mouseDownGridX +1; i++ ) {
+								for (int j = myPanel.mouseDownGridY - 1; j <= myPanel.mouseDownGridY +1; j++) {
+									if (myPanel.mines[i][j] == 1) {
+										counter++;
+										System.out.println(counter);
+									}
+								}
+							}
+							
+							
 							Color lightGray = Color.LIGHT_GRAY;
 				
 								for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
