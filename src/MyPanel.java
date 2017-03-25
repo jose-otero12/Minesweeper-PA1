@@ -24,6 +24,7 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int numberOfMines = 10;
 	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -44,7 +45,7 @@ public class MyPanel extends JPanel {
 		for (int i = 0; i < numberOfMines; i++ ){
 			int randX = new Random().nextInt(TOTAL_COLUMNS);
 			int randY = new Random().nextInt(TOTAL_ROWS);
-	//		numberOfMines[i] = rand;
+
 			if (mines[randX][randY]!=1){
 			mines[randX][randY] = 1;
 			}
@@ -52,8 +53,6 @@ public class MyPanel extends JPanel {
 				i--;
 			}
 		}
-		
-		// Restart Button
 		
 	}
 	public void paintComponent(Graphics g) {
@@ -73,7 +72,6 @@ public class MyPanel extends JPanel {
 		g.fillRect(x1, y1, width + 1, height + 1);
 		
 		Graphics2D g2 = (Graphics2D) g;
-		Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
 		g2.setColor(Color.YELLOW);
 		g2.fill(restartButton);
 		g2.setColor(Color.BLACK);
@@ -103,6 +101,8 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
+	
+	
 	
 	
 	public int getGridX(int x, int y) {
