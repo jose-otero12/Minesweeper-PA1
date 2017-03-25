@@ -117,22 +117,105 @@ public class MyMouseAdapter extends MouseAdapter {
 						}//
 						else{
 							// Verificar si hay minas alrededor de donde se hizo click y poner un un numero.
+							int xMouse = myPanel.mouseDownGridX;
+							int yMouse = myPanel.mouseDownGridY;
+							counter = 0;
+							Color lightGray = Color.GRAY;
 							
-							for (int i = myPanel.mouseDownGridX -1; i <= myPanel.mouseDownGridX +1; i++ ) {
-								for (int j = myPanel.mouseDownGridY - 1; j <= myPanel.mouseDownGridY +1; j++) {
-									if (myPanel.mines[i][j] == 1) {
-										
-										counter++;
-										System.out.println(counter);
-										
+							
+							
+								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									for (int j = yMouse - 1; j <= yMouse +1; j++) {		
+										if (myPanel.mines[i][j] == 1) {
+											counter++;
+											System.out.println(counter);					
+										}
 									}
 								}
+								
+							
+							if(counter==0){
+								
+								
+								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+										for(int o = i; o>=0 && myPanel.mines[o][j]==0 ; o--){
+											if (myPanel.mines[i][j] == 1) {
+												counter++;
+												System.out.println(counter);					
+											}
+											if(myPanel.mines[i][j]!=1){
+												if(counter==0){
+													myPanel.colorArray[o][j] = lightGray;
+													myPanel.repaint();	
+												}											
+											}		
+										}
+																												
+									}
+								}
+								
+								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+										for(int p = yMouse; p>=0 && myPanel.mines[i][p]==0; p--){
+											if (myPanel.mines[i][j] == 1) {
+												counter++;
+												System.out.println(counter);					
+											}
+											if(myPanel.mines[i][j]!=1){
+												if(counter==0){
+													myPanel.colorArray[i][p] = lightGray;
+													myPanel.repaint();	
+												}											
+											}
+										}
+																														
+									}
+								}
+								
+								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+										for(int q = xMouse; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][j]==0 ; q++){
+											if (myPanel.mines[i][j] == 1) {
+												counter++;
+												System.out.println(counter);					
+											}
+											if(myPanel.mines[i][j]!=1){
+												if(counter==0){
+													myPanel.colorArray[q][j] = lightGray;
+													myPanel.repaint();	
+												}											
+											}	
+										}
+																													
+									}
+								}
+								
+								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+										for(int r = i; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[i][r]==0; r++){
+											if (myPanel.mines[i][j] == 1) {
+												counter++;
+												System.out.println(counter);					
+											}
+											if(myPanel.mines[i][j]!=1){
+												if(counter==0){
+													myPanel.colorArray[i][r] = lightGray;
+													myPanel.repaint();	
+												}											
+											}			
+										}
+																											
+																											
+									}
+								}
+								
 							}
 							
+								
 							
-							Color lightGray = Color.LIGHT_GRAY;
 				
-								for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
+							/*	for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
 									myPanel.colorArray[o][myPanel.mouseDownGridY] = lightGray;
 									myPanel.repaint();
 								}
@@ -147,7 +230,7 @@ public class MyMouseAdapter extends MouseAdapter {
 								for(int r = myPanel.mouseDownGridY; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[myPanel.mouseDownGridX][r]==0; r++){
 									myPanel.colorArray[myPanel.mouseDownGridX][r] = lightGray;
 									myPanel.repaint();
-								}
+								}*/
 		
 							
 							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = lightGray;
@@ -169,8 +252,9 @@ public class MyMouseAdapter extends MouseAdapter {
 			break;
 		}
 	}
-	public int getCounter(){
-		return this.counter;
+	public int getCounter()
+	{
+		return MyMouseAdapter.counter;
 	}
 	
 }

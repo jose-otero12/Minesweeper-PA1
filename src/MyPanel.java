@@ -40,7 +40,7 @@ public class MyPanel extends JPanel {
 		for (int i = 0; i < numberOfMines; i++ ){
 			int randX = new Random().nextInt(TOTAL_COLUMNS);
 			int randY = new Random().nextInt(TOTAL_ROWS);
-	//		numberOfMines[i] = rand;
+
 			if (mines[randX][randY]!=1){
 			mines[randX][randY] = 1;
 			}
