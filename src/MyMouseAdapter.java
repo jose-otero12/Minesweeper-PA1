@@ -3,13 +3,13 @@ import java.awt.Component;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Random;
+//import java.util.Random;
 
 import javax.swing.JFrame;
 
 
 public class MyMouseAdapter extends MouseAdapter {
-	private Random generator = new Random();
+	//private Random generator = new Random();
 	private static int counter = 0;
 	public void mousePressed(MouseEvent e) {
 		switch (e.getButton()) {
@@ -101,9 +101,9 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						if(myPanel.mines[myPanel.mouseDownGridX][myPanel.mouseDownGridY]==1){
-							for(int i=0; i<(MyPanel.getTotalColumns());i++){
-								for(int j=0; j<(MyPanel.getTotalRows());j++){
+						if (myPanel.mines[gridX][gridY] == 1) {
+							for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+								for(int j = 0; j < (MyPanel.getTotalRows()); j++){
 									Color black = Color.BLACK;
 									
 									if(myPanel.mines[i][j] == 1){
@@ -115,24 +115,22 @@ public class MyMouseAdapter extends MouseAdapter {
 								
 							}
 						}//
-						else{
+						else {
 							// Verificar si hay minas alrededor de donde se hizo click y poner un un numero.
 							
-							for (int i = myPanel.mouseDownGridX -1; i <= myPanel.mouseDownGridX +1; i++ ) {
-								for (int j = myPanel.mouseDownGridY - 1; j <= myPanel.mouseDownGridY +1; j++) {
-									if (myPanel.mines[i][j] == 1) {
-										
-										counter++;
-										System.out.println(counter);
-										
-									}
-								}
-							}
+//							for (int i = myPanel.mouseDownGridX -1; i <= myPanel.mouseDownGridX +1; i++ ) {
+//								for (int j = myPanel.mouseDownGridY - 1; j <= myPanel.mouseDownGridY +1; j++) {
+//									if (myPanel.mines[i][j] == 1) {
+//										counter++;
+//										System.out.println(counter);
+//									}
+//								}
+//							}
 							
 							
 							Color lightGray = Color.LIGHT_GRAY;
 				
-								for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
+								for(int o = myPanel.mouseDownGridX; o >= 0 && myPanel.mines[o][myPanel.mouseDownGridY] == 0 ; o--){
 									myPanel.colorArray[o][myPanel.mouseDownGridY] = lightGray;
 									myPanel.repaint();
 								}

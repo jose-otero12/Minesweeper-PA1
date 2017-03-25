@@ -1,10 +1,14 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JPanel;
+
+import com.sun.javafx.geom.Rectangle;
 
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
@@ -44,14 +48,17 @@ public class MyPanel extends JPanel {
 			if (mines[randX][randY]!=1){
 			mines[randX][randY] = 1;
 			}
-			else{
+			else {
 				i--;
-				}
+			}
 		}
+		
+		// Restart Button
+		
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
+		
 		//Compute interior coordinates
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
@@ -64,6 +71,13 @@ public class MyPanel extends JPanel {
 		//Paint the background
 		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
+		g2.setColor(Color.YELLOW);
+		g2.fill(restartButton);
+		g2.setColor(Color.BLACK);
+		g2.draw(restartButton);
 
 		//Draw the grid minus the bottom row (which has only one cell)
 		//By default, the grid will be 10x10 (see above: TOTAL_COLUMNS and TOTAL_ROWS) 
@@ -90,39 +104,6 @@ public class MyPanel extends JPanel {
 		}
 	}
 	
-	public ArrayList<Integer> getNeighbors( int  [] grid , int index){
-		ArrayList<Integer>neighbors = new ArrayList<Integer>() ;
-		int decrmnt = index;
-		
-		/*
-		 * We Check if it is on the bounds(Maximums / Minimums)
-		 *   
-		 */
-		if(index % 9 == 0)
-		{
-			//Already at the top so lets check if index is 0
-			if(index == 0)
-			{
-
-			}
-			//Otherwise we keep diminishing the index
-			while(decrmnt != 0)
-			{
-				//We check if there is a mine
-				//if(grid[decrmnt].hasMine())
-					//neighbors.add(grid[decrmnt]);
-				decrmnt--;
-			}
-		}
-		
-	/*	if( index )
-		{
-			
-		}*/
-		
-		
-		return neighbors;
-	}
 	
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
