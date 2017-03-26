@@ -16,7 +16,7 @@ public class MyPanel extends JPanel {
 	private static final int GRID_Y = 40;
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
-	private static final int TOTAL_ROWS = 9;   //Last row has only one cell
+	private static final int TOTAL_ROWS = 9;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -24,7 +24,10 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int numberOfMines = 10;
 	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public int[][] adjacentMines;
+	
 	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
+	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -36,7 +39,7 @@ public class MyPanel extends JPanel {
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
 ////
-		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //The rest of the grid
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //the grid
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				colorArray[x][y] = Color.WHITE;
 			}
@@ -53,8 +56,58 @@ public class MyPanel extends JPanel {
 				i--;
 			}
 		}
-		
+		adjacentMines = adjacentMines();
 	}
+	
+	private boolean isValid(int col, int row) {
+		return ((col >= 0 && col < TOTAL_COLUMNS) && (row >= 0 && row < TOTAL_ROWS));
+	}
+	
+	private boolean isMine(int col, int row) {
+		return (mines[col][row] == 1);
+	}
+	
+	public int[][] adjacentMines() {
+		int adjacent[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+		int counter = 0;
+		for (int i=0; i < TOTAL_COLUMNS; i++) {
+			for (int j=0; j < TOTAL_ROWS; j++) {
+				if (!isMine(i,j)) {
+					if (isValid(i-1,j-1) && isMine(i-1,j-1)) {
+						counter++;
+					}
+					if (isValid(i,j-1) && isMine(i,j-1)) {
+						counter++;
+					}
+					if (isValid(i+1,j-1) && isMine(i+1,j-1)) {
+						counter++;
+					}
+					if (isValid(i-1,j) && isMine(i-1,j)) {
+						counter++;
+					}
+					if (isValid(i+1,j) && isMine(i+1,j)) {
+						counter++;
+					}
+					if (isValid(i-1,j+1) && isMine(i-1,j+1)) {
+						counter++;
+					}
+					if (isValid(i,j+1) && isMine(i,j+1)) {
+						counter++;
+					}
+					if (isValid(i+1,j+1) && isMine(i+1,j+1)) {
+						counter++;
+					}
+					adjacent[i][j] = counter;
+					counter = 0;
+					
+					System.out.println("Adjacen Mines: " + adjacent[i][j]);
+				}
+			}
+		}
+
+		return adjacent;
+	}
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -155,6 +208,7 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
+	
 	public static int getTotalRows(){
 		
 		return TOTAL_ROWS;

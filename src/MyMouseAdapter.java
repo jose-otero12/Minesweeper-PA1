@@ -91,19 +91,9 @@ public class MyMouseAdapter extends MouseAdapter {
 			myPanel.y = y;
 			int gridX = myPanel.getGridX(x, y);
 			int gridY = myPanel.getGridY(x, y);
-			if ((myPanel.mouseDownGridX == -1) || (myPanel.mouseDownGridY == -1)) {
+			if ((gridX == -1) || (gridY == -1)) {
 				//Had pressed outside
-				//Do nothing
-//				if (myPanel.mouseDownGridX == myPanel.restartButton.getX() && myPanel.mouseDownGridY == myPanel.restartButton.getY()) {
-//					for (x = 0; x < MyPanel.getTotalColumns(); x++) {
-//						for (y = 0; y < MyPanel.getTotalRows(); y++) {
-//							Color cA = colorArray[x][y];
-//							g.setColor(cA);
-//							g.fillRect(x1 + GRID_X + (x * (INNER_CELL_SIZE + 1)) + 1, y1 + GRID_Y + (y * (INNER_CELL_SIZE + 1)) + 1, INNER_CELL_SIZE, INNER_CELL_SIZE);
-//						}
-//					}
-//
-//				}
+				
 			} else {
 				if ((gridX == -1) || (gridY == -1)) {
 					//Is releasing outside
@@ -135,18 +125,14 @@ public class MyMouseAdapter extends MouseAdapter {
 							counter = 0;
 							Color lightGray = Color.GRAY;
 
-
-
-
-							for (int k = xMouse - 1; k <= xMouse + 1; k++) {
-								for (int j = yMouse - 1; j <= yMouse +1; j++) {		
-									if (myPanel.mines[k][j] == 1) {
-										counter++;
-										System.out.println(counter);					
-									}
-								}
-							}
-
+//							for (int k = xMouse - 1; k <= xMouse + 1; k++) {
+//								for (int j = yMouse - 1; j <= yMouse +1; j++) {		
+//									if (myPanel.mines[k][j] == 1) {
+//										counter++;
+//										System.out.println(counter);					
+//									}
+//								}
+//							}
 
 							if(counter==0){
 
@@ -225,6 +211,10 @@ public class MyMouseAdapter extends MouseAdapter {
 								}
 
 							}
+							
+							else if (counter == 1) {
+								
+							}
 
 							for(int o = myPanel.mouseDownGridX; o >= 0 && myPanel.mines[o][myPanel.mouseDownGridY] == 0 ; o--){
 
@@ -258,9 +248,7 @@ public class MyMouseAdapter extends MouseAdapter {
 				break;
 			}
 			case 3:		//Right mouse button
-				//Do nothing
-
-
+				// do nothing
 				break;
 			default:    //Some other button (2 = Middle mouse button, etc.)
 				//Do nothing
