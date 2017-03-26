@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class MyMouseAdapter extends MouseAdapter {
@@ -119,20 +121,34 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 						}//
 						else {
-							// Verificar si hay minas alrededor de donde se hizo click y poner un un numero.
+							int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
+							if (myPanel.getAdjacentMines(gridX, gridY) > 0) {
+								JLabel label = new JLabel(String.valueOf(adjacentCount), JLabel.CENTER);
+								label.setSize(29, 29);
+								myPanel.add(label);
+//								Insets myInsets = myPanel.getInsets();
+//								int cx1 = myInsets.left;
+//								int cy1 = myInsets.top;
+//								int cx2 = myPanel.getWidth() - myInsets.right - 1;
+//								int cy2 = myPanel.getHeight() - myInsets.bottom - 1;
+//								int width = cx2 - cx1;
+//								int height = cy2 - cy1;
+								Insets myInsets1 = myPanel.getInsets();
+								int cx1 = myInsets1.left;
+								int cy1 = myInsets1.top;
+								int cx = x - x1 - 55;
+								int cy = y - y1 - 40;
+								
+								
+								
+								label.setLocation(cx+60, cy+58);
+								
+							}
+							
 							int xMouse = myPanel.mouseDownGridX;
 							int yMouse = myPanel.mouseDownGridY;
 							counter = 0;
 							Color lightGray = Color.GRAY;
-
-//							for (int k = xMouse - 1; k <= xMouse + 1; k++) {
-//								for (int j = yMouse - 1; j <= yMouse +1; j++) {		
-//									if (myPanel.mines[k][j] == 1) {
-//										counter++;
-//										System.out.println(counter);					
-//									}
-//								}
-//							}
 
 							if(counter==0){
 
@@ -210,10 +226,6 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 								}
 
-							}
-							
-							else if (counter == 1) {
-								
 							}
 
 							for(int o = myPanel.mouseDownGridX; o >= 0 && myPanel.mines[o][myPanel.mouseDownGridY] == 0 ; o--){

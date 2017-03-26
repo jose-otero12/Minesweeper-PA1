@@ -17,6 +17,7 @@ public class MyPanel extends JPanel {
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
+	private int[][] adjacentMines;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
@@ -24,7 +25,7 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int numberOfMines = 10;
 	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
-	public int[][] adjacentMines;
+	
 	
 	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
 	
@@ -67,6 +68,7 @@ public class MyPanel extends JPanel {
 		return (mines[col][row] == 1);
 	}
 	
+	//Assigns number of adjacent mines to empty grids.
 	public int[][] adjacentMines() {
 		int adjacent[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 		int counter = 0;
@@ -108,6 +110,18 @@ public class MyPanel extends JPanel {
 		return adjacent;
 	}
 	
+	public int[][] getAdjacentMines() {
+		return adjacentMines;
+	}
+	
+	public int getAdjacentMines(int col, int row) {
+		return adjacentMines[col][row];
+	}
+
+	public void setAdjacentMines(int[][] adjacentMines) {
+		this.adjacentMines = adjacentMines;
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
