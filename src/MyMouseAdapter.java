@@ -134,14 +134,15 @@ public class MyMouseAdapter extends MouseAdapter {
 //								int width = cx2 - cx1;
 //								int height = cy2 - cy1;
 								Insets myInsets1 = myPanel.getInsets();
-								int cx1 = myInsets1.left;
-								int cy1 = myInsets1.top;
-								int cx = x - x1 - 55;
-								int cy = y - y1 - 40;
-								
-								
-								
-								label.setLocation(cx+60, cy+58);
+//								int cx1 = myInsets1.left;
+//								int cy1 = myInsets1.top;
+								int cx = 55 + 30*gridX;
+								int cy = 40 + 30*gridY;
+								System.out.println("x1 = " + x1);
+								System.out.println("y1 = " + y1);
+								System.out.println("gridX = " + gridX);
+								System.out.println("gridY = " + gridY);
+								label.setLocation(cx, cy);
 								
 							}
 							
@@ -158,7 +159,7 @@ public class MyMouseAdapter extends MouseAdapter {
 										for(int o = i; o>=0 && myPanel.mines[o][j]==0 ; o--){
 											if (myPanel.mines[i][j] == 1) {
 												counter++;
-												System.out.println(counter);					
+												//System.out.println(counter);					
 											}
 											if(myPanel.mines[i][j]!=1){
 												if(counter==0){
@@ -176,7 +177,7 @@ public class MyMouseAdapter extends MouseAdapter {
 										for(int p = yMouse; p>=0 && myPanel.mines[i][p]==0; p--){
 											if (myPanel.mines[i][j] == 1) {
 												counter++;
-												System.out.println(counter);					
+												//System.out.println(counter);					
 											}
 											if(myPanel.mines[i][j]!=1){
 												if(counter==0){
@@ -194,7 +195,7 @@ public class MyMouseAdapter extends MouseAdapter {
 										for(int q = xMouse; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][j]==0 ; q++){
 											if (myPanel.mines[i][j] == 1) {
 												counter++;
-												System.out.println(counter);					
+												//System.out.println(counter);					
 											}
 											if(myPanel.mines[i][j]!=1){
 												if(counter==0){
@@ -212,7 +213,7 @@ public class MyMouseAdapter extends MouseAdapter {
 										for(int r = i; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[i][r]==0; r++){
 											if (myPanel.mines[i][j] == 1) {
 												counter++;
-												System.out.println(counter);					
+												//System.out.println(counter);					
 											}
 											if(myPanel.mines[i][j]!=1){
 												if(counter==0){

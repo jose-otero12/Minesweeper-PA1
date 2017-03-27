@@ -6,6 +6,7 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.sun.javafx.geom.Rectangle;
@@ -25,6 +26,7 @@ public class MyPanel extends JPanel {
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int numberOfMines = 10;
 	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
+	public JLabel labels[][] = new JLabel[TOTAL_COLUMNS][TOTAL_ROWS];
 	
 	
 	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
@@ -58,6 +60,14 @@ public class MyPanel extends JPanel {
 			}
 		}
 		adjacentMines = adjacentMines();
+		
+//		for (int i = 0; i < TOTAL_COLUMNS; i++) {
+//			for (int j = 0; j < TOTAL_ROWS; j++) {
+//				labels[i][j].setText(String.valueOf(adjacentMines[i][j]));
+//				labels[i][j].setLocation(i, j);
+//				labels[i][j].setSize(29, 29);
+//			}
+//		}
 	}
 	
 	private boolean isValid(int col, int row) {
