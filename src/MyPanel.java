@@ -330,11 +330,13 @@ public class MyPanel extends JPanel {
 			for(int j = row-1;j<=row+1;j++){
 				System.out.println("indexes: "+ i+" "+j);
 				if(i!=col&&j!=row){
-					if(isValid(i,j)&&hasAdjacent(i,j)){
+					if(isValid(i,j)&&hasAdjacent(i,j)&&!isMine(i,j)){
 						labels[i][j].setVisible(true);
 					}
-					else if(isValid(i,j)){
+					else if(isValid(i,j)&& !isMine(i,j)){
+						
 						dominoEffect(i,j);
+						System.out.println("ENTRE!!!");
 					}
 				}
 			}

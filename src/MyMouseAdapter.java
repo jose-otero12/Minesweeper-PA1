@@ -144,6 +144,8 @@ public class MyMouseAdapter extends MouseAdapter {
 							if(adjacentCount==0){
 								
 								myPanel.dominoEffect(xMouse, yMouse);
+								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = lightGray;
+								myPanel.repaint();
 								
 
 
@@ -243,8 +245,7 @@ public class MyMouseAdapter extends MouseAdapter {
 //								}*/
 
 
-								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = lightGray;
-								myPanel.repaint();
+
 
 							}
 							else{
