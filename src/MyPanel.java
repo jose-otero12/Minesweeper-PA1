@@ -302,6 +302,42 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
+	
+	private boolean hasAdjacent(int x, int y){
+		
+//		for (int i =  x-1; i <= x+1; i++ ) {
+//			for (int j = y-1; j <= y+1; j++) {	
+//					if (mines[i][j] == 1) {
+//						counter++;
+//						System.out.println(counter);
+//						return true;
+//					}
+//					else{
+//						colorArray[i][j] = lightgray;
+//						return false;
+//					}				
+//				}
+//			}
+//		return false;
+		return adjacentMines[x][y]>0;
+		
+	}
+	
+	public void dominoEffect(int col, int row){
+		for(int i = col-1;i<=col+1;i++){
+			for(int j = row-1;j<=row+1;j++){
+				if(i!=col&&j!=row){
+					if(hasAdjacent(i,j)){
+						labels[i][j].setVisible(true);
+					}
+					else{
+						dominoEffect(i,j);
+					}
+				}
+			}
+		}
+	}
+
 
 	public JLabel[][] getLabels() {
 		return labels;
