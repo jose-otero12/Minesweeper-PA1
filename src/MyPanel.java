@@ -292,8 +292,8 @@ public class MyPanel extends JPanel {
 					label.setSize(29, 29);
 					add(label);
 
-					int cx = 55 + 29*(i-1);//INNER_CELL_SIZE/2*i;
-					int cy = 40 + 29*(j-1);//INNER_CELL_SIZE/2*j;
+					int cx = 55 + 30*(i-1);//INNER_CELL_SIZE/2*i;
+					int cy = 40 + 30*(j-1);//INNER_CELL_SIZE/2*j;
 					label.setLocation(cx,cy);
 					System.out.println("Location: "+ label.getLocation());
 					label.setVisible(false);

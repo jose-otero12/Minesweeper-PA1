@@ -136,16 +136,7 @@ public class MyMouseAdapter extends MouseAdapter {
 
 							label.setVisible(true);
 							int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
-//							if (myPanel.getAdjacentMines(gridX, gridY) > 0) {
-//								JLabel label = new JLabel(String.valueOf(adjacentCount), JLabel.CENTER);
-//								label.setSize(29, 29);
-//								myPanel.add(label);
-//																
-//								int cx = 55 + 30*gridX;
-//								int cy = 40 + 30*gridY;
-//								label.setLocation(cx, cy);
-//								
-//							}
+//					
 							
 							int xMouse = myPanel.mouseDownGridX;
 							int yMouse = myPanel.mouseDownGridY;
@@ -172,7 +163,7 @@ public class MyMouseAdapter extends MouseAdapter {
 
 									}
 								}
-
+//
 								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
 									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
 										for(int p = yMouse; p>=0 && myPanel.mines[i][p]==0; p--){
