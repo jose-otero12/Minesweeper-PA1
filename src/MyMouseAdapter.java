@@ -117,146 +117,153 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
-						if (myPanel.mines[gridX][gridY] == 1) {
-							for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
-								for(int j = 0; j < (MyPanel.getTotalRows()); j++){
-									Color black = Color.BLACK;
+						if(!myPanel.isFinished()) {
+							if (myPanel.mines[gridX][gridY] == 1) {
+								for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+									for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+										Color black = Color.BLACK;
 
-									if(myPanel.mines[i][j] == 1){
-										myPanel.colorArray[i][j] = black;
-										myPanel.repaint();
+										if(myPanel.mines[i][j] == 1){
+											myPanel.colorArray[i][j] = black;
+											myPanel.repaint();
+											myPanel.endGameResult(false);
+										}
+
 									}
 
 								}
+							}//
+							else {
 
-							}
-						}//
-						else {
-							
-							int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
-//					
-							
-							int xMouse = myPanel.mouseDownGridX;
-							int yMouse = myPanel.mouseDownGridY;
-							counter = 0;
-							Color lightGray = Color.GRAY;
+								int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
+								//					
 
-							if(adjacentCount==0){
-								
-								myPanel.dominoEffect(xMouse, yMouse);
-								
+								int xMouse = myPanel.mouseDownGridX;
+								int yMouse = myPanel.mouseDownGridY;
+								counter = 0;
+								Color lightGray = Color.GRAY;
+
+								if(adjacentCount==0){
+
+									myPanel.dominoEffect(xMouse, yMouse);
 
 
-//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
-//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
-//										for(int o = i; o>=0 && myPanel.mines[o][j]==0 ; o--){
-//											if (myPanel.mines[i][j] == 1) {
-//												counter++;
-//												//System.out.println(counter);					
-//											}
-//											if(myPanel.mines[i][j]!=1){
-//												if(counter==0){
-//													myPanel.colorArray[o][j] = lightGray;
-//													myPanel.repaint();	
-//												}											
-//											}		
-//										}
-//
-//									}
-//								}
-////
-//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
-//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
-//										for(int p = yMouse; p>=0 && myPanel.mines[i][p]==0; p--){
-//											if (myPanel.mines[i][j] == 1) {
-//												counter++;
-//												//System.out.println(counter);					
-//											}
-//											if(myPanel.mines[i][j]!=1){
-//												if(counter==0){
-//													myPanel.colorArray[i][p] = lightGray;
-//													myPanel.repaint();	
-//												}											
-//											}
-//										}
-//
-//									}
-//								}
-//
-//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
-//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
-//										for(int q = xMouse; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][j]==0 ; q++){
-//											if (myPanel.mines[i][j] == 1) {
-//												counter++;
-//												//System.out.println(counter);					
-//											}
-//											if(myPanel.mines[i][j]!=1){
-//												if(counter==0){
-//													myPanel.colorArray[q][j] = lightGray;
-//													myPanel.repaint();	
-//												}											
-//											}	
-//										}
-//
-//									}
-//								}
-//
-//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
-//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
-//										for(int r = i; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[i][r]==0; r++){
-//											if (myPanel.mines[i][j] == 1) {
-//												counter++;
-//												//System.out.println(counter);					
-//											}
-//											if(myPanel.mines[i][j]!=1){
-//												if(counter==0){
-//													myPanel.colorArray[i][r] = lightGray;
-//													myPanel.repaint();	
-//												}											
-//											}			
-//										}
-//
-//
-//									}
-//								}
-//
-//							}
-//
-//							for(int o = myPanel.mouseDownGridX; o >= 0 && myPanel.mines[o][myPanel.mouseDownGridY] == 0 ; o--){
-//
-//								/*	for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
-//>>>>>>> branch 'master' of https://github.com/jose-otero12/Minesweeper-PA1.git
-//									myPanel.colorArray[o][myPanel.mouseDownGridY] = lightGray;
-//									myPanel.repaint();
-//								}
-//								for(int p = myPanel.mouseDownGridY; p>=0 && myPanel.mines[myPanel.mouseDownGridX][p]==0; p--){
-//									myPanel.colorArray[myPanel.mouseDownGridX][p] = lightGray;
-//									myPanel.repaint();
-//								}
-//								for(int q = myPanel.mouseDownGridX; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][myPanel.mouseDownGridY]==0 ; q++){
-//									myPanel.colorArray[q][myPanel.mouseDownGridY] = lightGray;
-//									myPanel.repaint();
-//								}
-//								for(int r = myPanel.mouseDownGridY; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[myPanel.mouseDownGridX][r]==0; r++){
-//									myPanel.colorArray[myPanel.mouseDownGridX][r] = lightGray;
-//									myPanel.repaint();
-//								}*/
+
+									//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+									//										for(int o = i; o>=0 && myPanel.mines[o][j]==0 ; o--){
+									//											if (myPanel.mines[i][j] == 1) {
+									//												counter++;
+									//												//System.out.println(counter);					
+									//											}
+									//											if(myPanel.mines[i][j]!=1){
+									//												if(counter==0){
+									//													myPanel.colorArray[o][j] = lightGray;
+									//													myPanel.repaint();	
+									//												}											
+									//											}		
+									//										}
+									//
+									//									}
+									//								}
+									////
+									//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+									//										for(int p = yMouse; p>=0 && myPanel.mines[i][p]==0; p--){
+									//											if (myPanel.mines[i][j] == 1) {
+									//												counter++;
+									//												//System.out.println(counter);					
+									//											}
+									//											if(myPanel.mines[i][j]!=1){
+									//												if(counter==0){
+									//													myPanel.colorArray[i][p] = lightGray;
+									//													myPanel.repaint();	
+									//												}											
+									//											}
+									//										}
+									//
+									//									}
+									//								}
+									//
+									//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+									//										for(int q = xMouse; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][j]==0 ; q++){
+									//											if (myPanel.mines[i][j] == 1) {
+									//												counter++;
+									//												//System.out.println(counter);					
+									//											}
+									//											if(myPanel.mines[i][j]!=1){
+									//												if(counter==0){
+									//													myPanel.colorArray[q][j] = lightGray;
+									//													myPanel.repaint();	
+									//												}											
+									//											}	
+									//										}
+									//
+									//									}
+									//								}
+									//
+									//								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
+									//									for (int j = yMouse - 1; j <= yMouse +1; j++) {	
+									//										for(int r = i; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[i][r]==0; r++){
+									//											if (myPanel.mines[i][j] == 1) {
+									//												counter++;
+									//												//System.out.println(counter);					
+									//											}
+									//											if(myPanel.mines[i][j]!=1){
+									//												if(counter==0){
+									//													myPanel.colorArray[i][r] = lightGray;
+									//													myPanel.repaint();	
+									//												}											
+									//											}			
+									//										}
+									//
+									//
+									//									}
+									//								}
+									//
+									//							}
+									//
+									//							for(int o = myPanel.mouseDownGridX; o >= 0 && myPanel.mines[o][myPanel.mouseDownGridY] == 0 ; o--){
+									//
+									//								/*	for(int o = myPanel.mouseDownGridX; o>=0 && myPanel.mines[o][myPanel.mouseDownGridY]==0 ; o--){
+									//>>>>>>> branch 'master' of https://github.com/jose-otero12/Minesweeper-PA1.git
+									//									myPanel.colorArray[o][myPanel.mouseDownGridY] = lightGray;
+									//									myPanel.repaint();
+									//								}
+									//								for(int p = myPanel.mouseDownGridY; p>=0 && myPanel.mines[myPanel.mouseDownGridX][p]==0; p--){
+									//									myPanel.colorArray[myPanel.mouseDownGridX][p] = lightGray;
+									//									myPanel.repaint();
+									//								}
+									//								for(int q = myPanel.mouseDownGridX; q<=(MyPanel.getTotalRows()-1) && myPanel.mines[q][myPanel.mouseDownGridY]==0 ; q++){
+									//									myPanel.colorArray[q][myPanel.mouseDownGridY] = lightGray;
+									//									myPanel.repaint();
+									//								}
+									//								for(int r = myPanel.mouseDownGridY; r<=(MyPanel.getTotalColumns()-1) && myPanel.mines[myPanel.mouseDownGridX][r]==0; r++){
+									//									myPanel.colorArray[myPanel.mouseDownGridX][r] = lightGray;
+									//									myPanel.repaint();
+									//								}*/
 
 
-								myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = lightGray;
-								myPanel.repaint();
+									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = lightGray;
+									myPanel.repaint();
 
-							}
-							else{
-								JLabel label = myPanel.getLabelAt(gridX, gridY);
+								}
+								else{
+									JLabel label = myPanel.getLabelAt(gridX, gridY);
 
-								label.setVisible(true);
+									label.setVisible(true);
+								}
 							}
 						}
+						else {
+							myPanel.endGameResult(true);
+						}
 					}
+					myPanel.repaint();
+					break;
 				}
-				myPanel.repaint();
-				break;
+				
 			}
 			case 3:		//Right mouse button
 				// do nothing
