@@ -320,7 +320,6 @@ public class MyPanel extends JPanel {
 //					}				
 //				}
 //			}
-//		return false;
 		return adjacentMines[x][y]>0;
 		
 	}
@@ -329,16 +328,20 @@ public class MyPanel extends JPanel {
 		for(int i = col-1;i<=col+1;i++){
 			for(int j = row-1;j<=row+1;j++){
 				System.out.println("indexes: "+ i+" "+j);
-				if(i!=col&&j!=row){
-					if(isValid(i,j)&&hasAdjacent(i,j)&&!isMine(i,j)){
+				colorArray[i][j] = Color.LIGHT_GRAY;
+				this.repaint();
+			//	if(i!=col&&j!=row){
+					if(isValid(i,j)&&hasAdjacent(i,j)&&!isMine(i,j)){//&& !isClicked(i,j)){	
+						colorArray[i][j] = Color.LIGHT_GRAY;
 						labels[i][j].setVisible(true);
+						this.repaint();
 					}
-					else if(isValid(i,j)&& !isMine(i,j)){
-						
-						dominoEffect(i,j);
-						System.out.println("ENTRE!!!");
-					}
-				}
+//					else if(isValid(i,j)&& !isMine(i,j)&& !isClicked(i,j)){	
+//						colorArray[i][j] = Color.LIGHT_GRAY;
+//						dominoEffect(i,j);
+//						this.repaint();
+//					}
+				//}
 			}
 		}
 	}
@@ -366,5 +369,38 @@ public class MyPanel extends JPanel {
 	
 	public void setLabelAt(int col, int row, JLabel newLabel) {
 		labels[col][row] = newLabel;
+	}
+	
+	public boolean isFinished() {
+
+
+		for (int i = 0; i < TOTAL_COLUMNS; i++) {
+			for (int j = 0; j < TOTAL_ROWS; j++) {
+				if (mines[i][j] != 1 && !isClicked(i,j)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public void endGameResult(boolean winOrLose) {
+		if (winOrLose) {
+			JLabel label = new JLabel("Congratulations, you won!", JLabel.CENTER);
+			label.setSize(200, 30);
+			add(label);
+			label.setLocation(10,10);
+		}
+		else {
+			JLabel label = new JLabel("Sorry, try again.", JLabel.CENTER);
+			label.setSize(200, 30);
+			add(label);
+			label.setLocation(10,10);
+		}
+		
+		JLabel resetMessege = new JLabel("Reset", JLabel.CENTER);
+		resetMessege.setSize(40, 40);
+		add(resetMessege);
+		resetMessege.setLocation(180,350);
 	}
  }
