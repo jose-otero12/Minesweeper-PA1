@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 
 public class MyMouseAdapter extends MouseAdapter {
@@ -126,22 +128,9 @@ public class MyMouseAdapter extends MouseAdapter {
 								JLabel label = new JLabel(String.valueOf(adjacentCount), JLabel.CENTER);
 								label.setSize(29, 29);
 								myPanel.add(label);
-//								Insets myInsets = myPanel.getInsets();
-//								int cx1 = myInsets.left;
-//								int cy1 = myInsets.top;
-//								int cx2 = myPanel.getWidth() - myInsets.right - 1;
-//								int cy2 = myPanel.getHeight() - myInsets.bottom - 1;
-//								int width = cx2 - cx1;
-//								int height = cy2 - cy1;
-								Insets myInsets1 = myPanel.getInsets();
-//								int cx1 = myInsets1.left;
-//								int cy1 = myInsets1.top;
+																
 								int cx = 55 + 30*gridX;
 								int cy = 40 + 30*gridY;
-								System.out.println("x1 = " + x1);
-								System.out.println("y1 = " + y1);
-								System.out.println("gridX = " + gridX);
-								System.out.println("gridY = " + gridY);
 								label.setLocation(cx, cy);
 								
 							}
@@ -151,7 +140,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							counter = 0;
 							Color lightGray = Color.GRAY;
 
-							if(counter==0){
+							if(adjacentCount==0){
 
 
 								for (int i = xMouse -1; i <= xMouse +1; i++ ) {
