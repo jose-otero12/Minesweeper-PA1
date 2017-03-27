@@ -27,6 +27,7 @@ public class MyPanel extends JPanel {
 	public int numberOfMines = 10;
 	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public JLabel labels[][] = new JLabel[TOTAL_COLUMNS][TOTAL_ROWS];
+	public boolean[][] clickedGrids = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
 	
 	
 	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
@@ -274,6 +275,7 @@ public class MyPanel extends JPanel {
 		repaint();
 		
 	}
+	
 
 	public void clearMines() {
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
@@ -326,16 +328,25 @@ public class MyPanel extends JPanel {
 	public void dominoEffect(int col, int row){
 		for(int i = col-1;i<=col+1;i++){
 			for(int j = row-1;j<=row+1;j++){
+				System.out.println("indexes: "+ i+" "+j);
 				if(i!=col&&j!=row){
-					if(hasAdjacent(i,j)){
+					if(isValid(i,j)&&hasAdjacent(i,j)){
 						labels[i][j].setVisible(true);
 					}
-					else{
+					else if(isValid(i,j)){
 						dominoEffect(i,j);
 					}
 				}
 			}
 		}
+	}
+	
+	public boolean isClicked(int col, int row){
+		return clickedGrids[col][row];		
+	}
+	
+	public void clickAT(int col, int row){
+		clickedGrids[col][row]=true;		
 	}
 
 
