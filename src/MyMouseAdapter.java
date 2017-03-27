@@ -40,6 +40,15 @@ public class MyMouseAdapter extends MouseAdapter {
 			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 			myPanel.mouseDownGridY = myPanel.getGridY(x, y);	
 			myPanel.repaint();
+			
+			if ((x >= restartButton.getX() && x <= restartButton.getX() + restartButton.getWidth()) && 
+					(y >= restartButton.getY() && y <= restartButton.getY() + restartButton.getHeight())) {
+				myPanel.reset();
+				//myPanel = new MyPanel();
+				//myPanel.repaint();
+			}
+				
+			
 			break;
 		case 3:		//Right mouse button
 			Component c2 = e.getComponent();
@@ -123,17 +132,20 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 						}//
 						else {
+							JLabel label = myPanel.getLabelAt(gridX, gridY);
+
+							label.setVisible(true);
 							int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
-							if (myPanel.getAdjacentMines(gridX, gridY) > 0) {
-								JLabel label = new JLabel(String.valueOf(adjacentCount), JLabel.CENTER);
-								label.setSize(29, 29);
-								myPanel.add(label);
-																
-								int cx = 55 + 30*gridX;
-								int cy = 40 + 30*gridY;
-								label.setLocation(cx, cy);
-								
-							}
+//							if (myPanel.getAdjacentMines(gridX, gridY) > 0) {
+//								JLabel label = new JLabel(String.valueOf(adjacentCount), JLabel.CENTER);
+//								label.setSize(29, 29);
+//								myPanel.add(label);
+//																
+//								int cx = 55 + 30*gridX;
+//								int cy = 40 + 30*gridY;
+//								label.setLocation(cx, cy);
+//								
+//							}
 							
 							int xMouse = myPanel.mouseDownGridX;
 							int yMouse = myPanel.mouseDownGridY;

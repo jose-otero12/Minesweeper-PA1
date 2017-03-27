@@ -32,6 +32,7 @@ public class MyPanel extends JPanel {
 	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
 	
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
+		this.setLayout(null);
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
@@ -60,14 +61,8 @@ public class MyPanel extends JPanel {
 			}
 		}
 		adjacentMines = adjacentMines();
+		labels();
 		
-//		for (int i = 0; i < TOTAL_COLUMNS; i++) {
-//			for (int j = 0; j < TOTAL_ROWS; j++) {
-//				labels[i][j].setText(String.valueOf(adjacentMines[i][j]));
-//				labels[i][j].setLocation(i, j);
-//				labels[i][j].setSize(29, 29);
-//			}
-//		}
 	}
 	
 	private boolean isValid(int col, int row) {
@@ -241,4 +236,86 @@ public class MyPanel extends JPanel {
 		
 		return TOTAL_COLUMNS;
 	}
-}
+	
+	public void reset() { 
+
+		clearMines();
+		
+		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
+			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
+		}
+		if (TOTAL_COLUMNS + (new Random()).nextInt(1) < 2) {	//Use of "random" to prevent unwanted Eclipse warning
+			throw new RuntimeException("TOTAL_COLUMNS must be at least 2!");
+		}
+		if (TOTAL_ROWS + (new Random()).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
+			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
+		}
+
+		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //the grid
+			for (int y = 0; y < TOTAL_ROWS; y++) {
+				colorArray[x][y] = Color.WHITE;
+			}
+		}
+		// Assigns the mines to different places
+		for (int i = 0; i < numberOfMines; i++ ){
+			int randX = new Random().nextInt(TOTAL_COLUMNS);
+			int randY = new Random().nextInt(TOTAL_ROWS);
+
+			if (mines[randX][randY]!=1){
+			mines[randX][randY] = 1;
+			}
+			else {
+				i--;
+			}
+		}
+		removeAll();
+		adjacentMines = adjacentMines();
+		labels();
+		repaint();
+		
+	}
+
+	public void clearMines() {
+		for (int i = 0; i < TOTAL_COLUMNS; i++) {
+			for (int j = 0; j < TOTAL_ROWS; j++) {
+				mines[i][j] = 0;
+			}
+		}
+	}
+	
+	public void labels() {
+		JLabel label;
+		for (int i = 1; i <= TOTAL_COLUMNS; i++) {
+			for (int j = 1; j <= TOTAL_ROWS; j++) {
+				if (!this.isMine(i-1,j-1) && adjacentMines[i-1][j-1] > 0 ) {
+					label = new JLabel(String.valueOf(adjacentMines[i-1][j-1]), JLabel.CENTER);
+					label.setSize(29, 29);
+					add(label);
+
+					int cx = 55 + 29*(i-1);//INNER_CELL_SIZE/2*i;
+					int cy = 40 + 29*(j-1);//INNER_CELL_SIZE/2*j;
+					label.setLocation(cx,cy);
+					System.out.println("Location: "+ label.getLocation());
+					label.setVisible(false);
+					labels[i-1][j-1] = label;
+				}
+			}
+		}
+	}
+
+	public JLabel[][] getLabels() {
+		return labels;
+	}
+
+	public void setLabels(JLabel[][] labels) {
+		this.labels = labels;
+	}
+	
+	public JLabel getLabelAt(int col, int row) {
+		return labels[col][row];
+	}
+	
+	public void setLabelAt(int col, int row, JLabel newLabel) {
+		labels[col][row] = newLabel;
+	}
+ }
