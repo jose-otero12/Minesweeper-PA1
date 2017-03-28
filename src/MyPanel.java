@@ -361,12 +361,24 @@ public class MyPanel extends JPanel {
 
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
 			for (int j = 0; j < TOTAL_ROWS; j++) {
-				if (mines[i][j] != 1 && !isClicked(i,j)) {
+				if (!isMine(i,j) && !isClicked(i,j)) {
 					return false;
 				}
 			}
 		}
 		return true;
+	}
+	
+	public boolean lose() {
+
+		for (int i = 0; i < TOTAL_COLUMNS; i++) {
+			for (int j = 0; j < TOTAL_ROWS; j++) {
+				if (isMine(i,j) && isClicked(i,j)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void endGameResult(boolean winOrLose) {
