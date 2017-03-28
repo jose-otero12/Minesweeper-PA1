@@ -141,7 +141,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
 		
 		Graphics2D g2 = (Graphics2D) g;
@@ -280,7 +280,11 @@ public class MyPanel extends JPanel {
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
 			for (int j = 0; j < TOTAL_ROWS; j++) {
 				mines[i][j] = 0;
+
 				clickedGrids[i][j]=false;
+
+				clickedGrids[i][j] = false;
+
 			}
 		}
 	}
@@ -371,6 +375,18 @@ public class MyPanel extends JPanel {
 			label.setSize(200, 30);
 			add(label);
 			label.setLocation(10,10);
+			for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+				for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+					Color black = Color.BLACK;
+
+					if(this.mines[i][j] == 1){
+						this.colorArray[i][j] = black;
+						this.repaint();
+					}
+
+				}
+
+			}
 		}
 		else {
 			JLabel label = new JLabel("Sorry, try again.", JLabel.CENTER);
