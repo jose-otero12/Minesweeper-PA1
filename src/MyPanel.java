@@ -175,8 +175,7 @@ public class MyPanel extends JPanel {
 		}
 	}
 	
-	
-	
+
 	
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
@@ -355,7 +354,6 @@ public class MyPanel extends JPanel {
 	}
 	
 	public boolean isFinished() {
-
 
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
 			for (int j = 0; j < TOTAL_ROWS; j++) {

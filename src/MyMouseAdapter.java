@@ -113,6 +113,18 @@ public class MyMouseAdapter extends MouseAdapter {
 			int gridY = myPanel.getGridY(x, y);
 			if ((gridX == -1) || (gridY == -1)) {
 				//Had pressed outside
+				for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+					for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+						Color black = Color.BLACK;
+
+						if(myPanel.mines[i][j] == 1){
+							myPanel.colorArray[i][j] = black;
+							myPanel.repaint();
+							//myPanel.endGameResult(false);
+						}
+
+					}
+				}
 
 			} else {
 				if ((gridX == -1) || (gridY == -1)) {
@@ -150,10 +162,8 @@ public class MyMouseAdapter extends MouseAdapter {
 									myPanel.dominoEffect(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
 									myPanel.repaint();
-									int xMouse = myPanel.mouseDownGridX;
-									int yMouse = myPanel.mouseDownGridY;
+
 									counter = 0;
-									Color lightGray = Color.GRAY;
 								}
 								else{
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
@@ -165,6 +175,10 @@ public class MyMouseAdapter extends MouseAdapter {
 							}
 						}
 						else {
+							myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
+							myPanel.repaint();
+							JLabel label = myPanel.getLabelAt(gridX, gridY);
+							label.setVisible(true);
 							myPanel.endGameResult(true);
 						}
 					}
