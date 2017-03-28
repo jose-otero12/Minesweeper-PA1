@@ -71,16 +71,16 @@ public class MyMouseAdapter extends MouseAdapter {
 			myPanel.mouseDownGridX = myPanel.getGridX(x, y);
 			myPanel.mouseDownGridY = myPanel.getGridY(x, y);
 			myPanel.repaint();
-
+			myPanel.redFlag();
 			//paints a square red meaning a flag
-			if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.WHITE){
-				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
-				myPanel.repaint();	
-			}
-			else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.RED){
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
-					myPanel.repaint();				
-			}
+//			if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.WHITE){
+//				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.RED;
+//				myPanel.repaint();	
+//			}
+//			else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.RED){
+//					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
+//					myPanel.repaint();				
+//			}
 			
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
