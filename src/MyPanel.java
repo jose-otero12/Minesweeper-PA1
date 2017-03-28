@@ -141,7 +141,7 @@ public class MyPanel extends JPanel {
 		int height = y2 - y1;
 
 		//Paint the background
-		g.setColor(Color.LIGHT_GRAY);
+		g.setColor(Color.GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
 		
 		Graphics2D g2 = (Graphics2D) g;
