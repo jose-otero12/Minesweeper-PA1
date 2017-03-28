@@ -78,10 +78,10 @@ public class MyMouseAdapter extends MouseAdapter {
 				myPanel.repaint();	
 			}
 			else if(myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] == Color.RED){
-					myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
-					myPanel.repaint();				
+				myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.WHITE;
+				myPanel.repaint();				
 			}
-			
+
 			break;
 		default:    //Some other button (2 = Middle mouse button, etc.)
 			//Do nothing
@@ -90,6 +90,7 @@ public class MyMouseAdapter extends MouseAdapter {
 	}
 
 	public void mouseReleased(MouseEvent e) {
+		
 		switch (e.getButton()) {
 		case 1:		//Left mouse button
 			Component c = e.getComponent();
@@ -111,82 +112,80 @@ public class MyMouseAdapter extends MouseAdapter {
 			myPanel.y = y;
 			int gridX = myPanel.getGridX(x, y);
 			int gridY = myPanel.getGridY(x, y);
-			if ((gridX == -1) || (gridY == -1)) {
-				//Had pressed outside
-
-			} else {
+			if (!myPanel.lose() && !myPanel.isFinished()) {
 				if ((gridX == -1) || (gridY == -1)) {
-					//Is releasing outside
-					//Do nothing
+					//Had pressed outside
+
 				} else {
-					if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
-						//Released the mouse button on a different cell where it was pressed
+					if ((gridX == -1) || (gridY == -1)) {
+						//Is releasing outside
 						//Do nothing
 					} else {
-						//Released the mouse button on the same cell where it was pressed
-						if(!myPanel.isFinished()) {
-							if (myPanel.mines[gridX][gridY] == 1) {
-								for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
-									for(int j = 0; j < (MyPanel.getTotalRows()); j++){
-										Color black = Color.BLACK;
+						if ((myPanel.mouseDownGridX != gridX) || (myPanel.mouseDownGridY != gridY)) {
+							//Released the mouse button on a different cell where it was pressed
+							//Do nothing
+						} else {
+							//Released the mouse button on the same cell where it was pressed
+							if(!myPanel.isFinished()) {
+								myPanel.clickAT(gridX, gridY);
+								if (myPanel.mines[gridX][gridY] == 1) {
+									for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+										for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+											Color black = Color.BLACK;
 
-										if(myPanel.mines[i][j] == 1){
-											myPanel.colorArray[i][j] = black;
-											myPanel.repaint();
-											myPanel.endGameResult(false);
+											if(myPanel.mines[i][j] == 1){
+												myPanel.colorArray[i][j] = black;
+												myPanel.repaint();
+												myPanel.endGameResult(false);
+											}
+
 										}
 
 									}
-
-								}
-							}//
-							else {
-
-								int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);	
-
-								if(adjacentCount==0){
-
-									myPanel.dominoEffect(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-
-									int xMouse = myPanel.mouseDownGridX;
-									int yMouse = myPanel.mouseDownGridY;
-									counter = 0;
-									Color lightGray = Color.GRAY;
-								}
+								}//
 								else {
-									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
-									myPanel.repaint();
-									JLabel label = myPanel.getLabelAt(gridX, gridY);
+									int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);	
 
-									label.setVisible(true);
+									if(adjacentCount==0){
+
+										myPanel.dominoEffect(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
+
+										int xMouse = myPanel.mouseDownGridX;
+										int yMouse = myPanel.mouseDownGridY;
+										counter = 0;
+										Color lightGray = Color.GRAY;
+									}
+									else {
+										myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
+										myPanel.repaint();
+										JLabel label = myPanel.getLabelAt(gridX, gridY);
+
+										label.setVisible(true);
+									}
+
 								}
 							}
+							else {
+								myPanel.endGameResult(true);
+							}
 						}
+						myPanel.repaint();
+						break;
 					}
-//					for (int i = 0; i < TOTAL_COLUMNS; i++) {
-//						for (int j = 0; j < TOTAL_ROWS; j++) {
-//							if (myPanel.isClicked(i,j) && myPanel.mines[i][j] != 1) {
-//								myPanel.endGameResult(true);
-//							}
-//						}
-//					}
-					myPanel.repaint();
-					break;
 				}
-
 			}
-		case 3:		//Right mouse button
-			// do nothing
-			break;
-		default:    //Some other button (2 = Middle mouse button, etc.)
-			//Do nothing
-			break;
-		}
+	case 3:		//Right mouse button
+		// do nothing
+		break;
+	default:    //Some other button (2 = Middle mouse button, etc.)
+		//Do nothing
+		break;
 	}
+}
 
-	public int getCounter()
-	{
-		return MyMouseAdapter.counter;
-	}
+public int getCounter()
+{
+	return MyMouseAdapter.counter;
+}
 
 }
