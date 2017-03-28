@@ -142,9 +142,7 @@ public class MyMouseAdapter extends MouseAdapter {
 							}//
 							else {
 
-								int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
-								//					
-
+								int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);	
 
 								if(adjacentCount==0){
 
@@ -155,7 +153,7 @@ public class MyMouseAdapter extends MouseAdapter {
 									counter = 0;
 									Color lightGray = Color.GRAY;
 								}
-								else{
+								else {
 									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
 									myPanel.repaint();
 									JLabel label = myPanel.getLabelAt(gridX, gridY);
@@ -164,10 +162,14 @@ public class MyMouseAdapter extends MouseAdapter {
 								}
 							}
 						}
-						else {
-							myPanel.endGameResult(true);
-						}
 					}
+//					for (int i = 0; i < TOTAL_COLUMNS; i++) {
+//						for (int j = 0; j < TOTAL_ROWS; j++) {
+//							if (myPanel.isClicked(i,j) && myPanel.mines[i][j] != 1) {
+//								myPanel.endGameResult(true);
+//							}
+//						}
+//					}
 					myPanel.repaint();
 					break;
 				}

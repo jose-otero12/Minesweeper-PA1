@@ -281,6 +281,7 @@ public class MyPanel extends JPanel {
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
 			for (int j = 0; j < TOTAL_ROWS; j++) {
 				mines[i][j] = 0;
+				clickedGrids[i][j] = false;
 			}
 		}
 	}
@@ -326,15 +327,16 @@ public class MyPanel extends JPanel {
 						labels[i][j].setVisible(true);
 						this.repaint();
 					}
-					else if(isValid(i,j)&& !isMine(i,j) && !isClicked(i,j)){	
+					else if(isValid(i,j) && !isMine(i,j) && !isClicked(i,j)){	
 						clickAT(i,j);
-						//colorArray[i][j] = Color.LIGHT_GRAY;
+						colorArray[i][j] = Color.LIGHT_GRAY;
 						dominoEffect(i,j);
 						//this.repaint();
 					}
 				//}
 			}
 		}
+		repaint();
 	}
 	
 	public void clickAT(int col, int row){
@@ -382,6 +384,18 @@ public class MyPanel extends JPanel {
 			label.setSize(200, 30);
 			add(label);
 			label.setLocation(10,10);
+			for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+				for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+					Color black = Color.BLACK;
+
+					if(this.mines[i][j] == 1){
+						this.colorArray[i][j] = black;
+						this.repaint();
+					}
+
+				}
+
+			}
 		}
 		else {
 			JLabel label = new JLabel("Sorry, try again.", JLabel.CENTER);
