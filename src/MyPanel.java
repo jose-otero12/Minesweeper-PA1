@@ -240,7 +240,7 @@ public class MyPanel extends JPanel {
 	
 	public void reset() { 
 
-		clearMines();
+		clear();
 		
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
@@ -277,10 +277,11 @@ public class MyPanel extends JPanel {
 	}
 	
 
-	public void clearMines() {
+	public void clear() {
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
 			for (int j = 0; j < TOTAL_ROWS; j++) {
 				mines[i][j] = 0;
+				clickedGrids[i][j]=false;
 			}
 		}
 	}
@@ -305,36 +306,30 @@ public class MyPanel extends JPanel {
 		}
 	}
 	
-	private boolean hasAdjacent(int x, int y){
-		
-		return adjacentMines[x][y]>0;
-		
+	private boolean hasAdjacent(int x, int y){		
+		return adjacentMines[x][y]>0;		
 	}
 	
 	public void dominoEffect(int col, int row){
+		
 		for(int i = col-1;i<=col+1;i++){
 			for(int j = row-1;j<=row+1;j++){
 				System.out.println("indexes: "+ i+" "+j);
-				//colorArray[i][j] = Color.LIGHT_GRAY;
-				//this.repaint();
 				
-			//	if(i!=col&&j!=row){
-				
-					if(isValid(i,j)&&hasAdjacent(i,j) &&!isMine(i,j) && !isClicked(i,j)){	
+					if(isValid(i,j) && hasAdjacent(i,j) && !isMine(i,j) && !isClicked(i,j)){	
 						clickAT(i,j);
 						colorArray[i][j] = Color.LIGHT_GRAY;
 						labels[i][j].setVisible(true);
-						this.repaint();
 					}
-					else if(isValid(i,j)&& !isMine(i,j) && !isClicked(i,j)){	
+					else if(isValid(i,j) && !isMine(i,j) && !isClicked(i,j)){	
 						clickAT(i,j);
-						//colorArray[i][j] = Color.LIGHT_GRAY;
+						colorArray[i][j] = Color.LIGHT_GRAY;
 						dominoEffect(i,j);
-						//this.repaint();
 					}
-				//}
+
 			}
 		}
+		repaint();
 	}
 	
 	public void clickAT(int col, int row){
@@ -343,10 +338,6 @@ public class MyPanel extends JPanel {
 	public boolean isClicked(int col, int row){
 		return clickedGrids[col][row];		
 	}
-	
-
-
-
 	public JLabel[][] getLabels() {
 		return labels;
 	}

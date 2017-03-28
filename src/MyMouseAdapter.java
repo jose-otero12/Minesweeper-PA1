@@ -124,6 +124,7 @@ public class MyMouseAdapter extends MouseAdapter {
 						//Do nothing
 					} else {
 						//Released the mouse button on the same cell where it was pressed
+						myPanel.clickAT(gridX, gridY);
 						if(!myPanel.isFinished()) {
 							if (myPanel.mines[gridX][gridY] == 1) {
 								for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
@@ -139,17 +140,16 @@ public class MyMouseAdapter extends MouseAdapter {
 									}
 
 								}
-							}//
+							}
 							else {
 
 								int adjacentCount = myPanel.getAdjacentMines(gridX, gridY);
-								//					
-
 
 								if(adjacentCount==0){
 
 									myPanel.dominoEffect(myPanel.mouseDownGridX, myPanel.mouseDownGridY);
-
+									myPanel.colorArray[myPanel.mouseDownGridX][myPanel.mouseDownGridY] = Color.LIGHT_GRAY;
+									myPanel.repaint();
 									int xMouse = myPanel.mouseDownGridX;
 									int yMouse = myPanel.mouseDownGridY;
 									counter = 0;
