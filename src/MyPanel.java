@@ -307,20 +307,6 @@ public class MyPanel extends JPanel {
 	
 	private boolean hasAdjacent(int x, int y){
 		
-//		for (int i =  x-1; i <= x+1; i++ ) {
-//			for (int j = y-1; j <= y+1; j++) {	
-//					if (mines[i][j] == 1) {
-//						counter++;
-//						System.out.println(counter);
-//						return true;
-//					}
-//					else{
-//						colorArray[i][j] = lightgray;
-//						return false;
-//					}				
-//				}
-//			}
-//		return false;
 		return adjacentMines[x][y]>0;
 		
 	}
@@ -329,25 +315,36 @@ public class MyPanel extends JPanel {
 		for(int i = col-1;i<=col+1;i++){
 			for(int j = row-1;j<=row+1;j++){
 				System.out.println("indexes: "+ i+" "+j);
-				if(i!=col&&j!=row){
-					if(isValid(i,j)&&hasAdjacent(i,j)){
+				//colorArray[i][j] = Color.LIGHT_GRAY;
+				//this.repaint();
+				
+			//	if(i!=col&&j!=row){
+				
+					if(isValid(i,j)&&hasAdjacent(i,j) &&!isMine(i,j) && !isClicked(i,j)){	
+						clickAT(i,j);
+						colorArray[i][j] = Color.LIGHT_GRAY;
 						labels[i][j].setVisible(true);
+						this.repaint();
 					}
-					else if(isValid(i,j)){
+					else if(isValid(i,j)&& !isMine(i,j) && !isClicked(i,j)){	
+						clickAT(i,j);
+						//colorArray[i][j] = Color.LIGHT_GRAY;
 						dominoEffect(i,j);
+						//this.repaint();
 					}
-				}
+				//}
 			}
 		}
-	}
-	
-	public boolean isClicked(int col, int row){
-		return clickedGrids[col][row];		
 	}
 	
 	public void clickAT(int col, int row){
 		clickedGrids[col][row]=true;		
 	}
+	public boolean isClicked(int col, int row){
+		return clickedGrids[col][row];		
+	}
+	
+
 
 
 	public JLabel[][] getLabels() {
