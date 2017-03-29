@@ -9,8 +9,6 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.sun.javafx.geom.Rectangle;
-
 public class MyPanel extends JPanel {
 	private static final long serialVersionUID = 3426940946811133635L;
 	private static final int GRID_X = 55;
@@ -18,21 +16,21 @@ public class MyPanel extends JPanel {
 	private static final int INNER_CELL_SIZE = 29;
 	private static final int TOTAL_COLUMNS = 9;
 	private static final int TOTAL_ROWS = 9;
-	private static int flags = 0;
 	private int[][] adjacentMines;
 	public int x = -1;
 	public int y = -1;
 	public int mouseDownGridX = 0;
 	public int mouseDownGridY = 0;
+	private static int flags = 0;
 	public Color[][] colorArray = new Color[TOTAL_COLUMNS][TOTAL_ROWS];
 	public int numberOfMines = 10;
 	public int[][] mines = new int[TOTAL_COLUMNS][TOTAL_ROWS];
 	public JLabel labels[][] = new JLabel[TOTAL_COLUMNS][TOTAL_ROWS];
 	public boolean[][] clickedGrids = new boolean[TOTAL_COLUMNS][TOTAL_ROWS];
-	
-	
 	public Rectangle2D.Double restartButton = new Rectangle2D.Double(180, 350, 40, 40);
-	
+
+
+
 	public MyPanel() {   //This is the constructor... this code runs first to initialize
 		this.setLayout(null);
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
@@ -44,19 +42,20 @@ public class MyPanel extends JPanel {
 		if (TOTAL_ROWS + (new Random()).nextInt(1) < 3) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("TOTAL_ROWS must be at least 3!");
 		}
-////
+		////
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {   //the grid
 			for (int y = 0; y < TOTAL_ROWS; y++) {
 				colorArray[x][y] = Color.WHITE;
 			}
 		}
+
 		// Assigns the mines to different places
 		for (int i = 0; i < numberOfMines; i++ ){
 			int randX = new Random().nextInt(TOTAL_COLUMNS);
 			int randY = new Random().nextInt(TOTAL_ROWS);
 
 			if (mines[randX][randY]!=1){
-			mines[randX][randY] = 1;
+				mines[randX][randY] = 1;
 			}
 			else {
 				i--;
@@ -64,17 +63,43 @@ public class MyPanel extends JPanel {
 		}
 		adjacentMines = adjacentMines();
 		labels();
-		
+
 	}
-	
+
+	public void redFlag() {
+		//if (flags < 10) {
+		if(!isClicked(mouseDownGridX,mouseDownGridY)){
+			if(colorArray[mouseDownGridX][mouseDownGridY] == Color.WHITE && flags < 10){
+				colorArray[mouseDownGridX][mouseDownGridY] = Color.RED;
+				repaint();	
+				flags++;
+			}
+			else if(colorArray[mouseDownGridX][mouseDownGridY] == Color.RED){										
+				colorArray[mouseDownGridX][mouseDownGridY] = Color.WHITE;
+				repaint();	
+				flags--;
+			}
+		}
+		else{
+			if(colorArray[mouseDownGridX][mouseDownGridY] == Color.RED){									
+				colorArray[mouseDownGridX][mouseDownGridY] = Color.LIGHT_GRAY;
+				repaint();		
+				labels[mouseDownGridX][mouseDownGridY].setVisible(true);
+				flags--;
+			}
+
+		}
+
+	}
+
 	private boolean isValid(int col, int row) {
 		return ((col >= 0 && col < TOTAL_COLUMNS) && (row >= 0 && row < TOTAL_ROWS));
 	}
-	
-	private boolean isMine(int col, int row) {
+
+	boolean isMine(int col, int row) {
 		return (mines[col][row] == 1);
 	}
-	
+
 	//Assigns number of adjacent mines to empty grids.
 	public int[][] adjacentMines() {
 		int adjacent[][] = new int[TOTAL_COLUMNS][TOTAL_ROWS];
@@ -108,19 +133,19 @@ public class MyPanel extends JPanel {
 					}
 					adjacent[i][j] = counter;
 					counter = 0;
-					
-					System.out.println("Adjacen Mines: " + adjacent[i][j]);
+
+					System.out.println("Adjacent Mines: " + adjacent[i][j]);
 				}
 			}
 		}
 
 		return adjacent;
 	}
-	
+
 	public int[][] getAdjacentMines() {
 		return adjacentMines;
 	}
-	
+
 	public int getAdjacentMines(int col, int row) {
 		return adjacentMines[col][row];
 	}
@@ -131,7 +156,7 @@ public class MyPanel extends JPanel {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
+
 		//Compute interior coordinates
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
@@ -144,7 +169,7 @@ public class MyPanel extends JPanel {
 		//Paint the background
 		g.setColor(Color.GRAY);
 		g.fillRect(x1, y1, width + 1, height + 1);
-		
+
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.YELLOW);
 		g2.fill(restartButton);
@@ -162,7 +187,7 @@ public class MyPanel extends JPanel {
 		}
 
 		//Draw an additional cell at the bottom left
-	//	g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
+		//	g.drawRect(x1 + GRID_X, y1 + GRID_Y + ((INNER_CELL_SIZE + 1) * (TOTAL_ROWS - 1)), INNER_CELL_SIZE + 1, INNER_CELL_SIZE + 1);
 
 		//Paint cell colors
 		for (int x = 0; x < TOTAL_COLUMNS; x++) {
@@ -175,9 +200,9 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-	
 
-	
+
+
 	public int getGridX(int x, int y) {
 		Insets myInsets = getInsets();
 		int x1 = myInsets.left;
@@ -228,20 +253,20 @@ public class MyPanel extends JPanel {
 		}
 		return y;
 	}
-	
+
 	public static int getTotalRows(){
-		
+
 		return TOTAL_ROWS;
 	}
 	public static int getTotalColumns(){
-		
+
 		return TOTAL_COLUMNS;
 	}
-	
+
 	public void reset() { 
 
 		clear();
-		
+
 		if (INNER_CELL_SIZE + (new Random()).nextInt(1) < 1) {	//Use of "random" to prevent unwanted Eclipse warning
 			throw new RuntimeException("INNER_CELL_SIZE must be positive!");
 		}
@@ -263,7 +288,7 @@ public class MyPanel extends JPanel {
 			int randY = new Random().nextInt(TOTAL_ROWS);
 
 			if (mines[randX][randY]!=1){
-			mines[randX][randY] = 1;
+				mines[randX][randY] = 1;
 			}
 			else {
 				i--;
@@ -273,30 +298,9 @@ public class MyPanel extends JPanel {
 		adjacentMines = adjacentMines();
 		labels();
 		repaint();
-		
+
 	}
-	
-	public void redFlag() {
-		//if (flags < 10) {
-			if(this.colorArray[this.mouseDownGridX][this.mouseDownGridY] == Color.WHITE && flags < 10){
-				this.colorArray[this.mouseDownGridX][this.mouseDownGridY] = Color.RED;
-				this.repaint();
-				flags++;
-			}
-			else if(this.colorArray[this.mouseDownGridX][this.mouseDownGridY] == Color.RED){
-				this.colorArray[this.mouseDownGridX][this.mouseDownGridY] = Color.WHITE;
-				this.repaint();	
-				flags--;
-			}
-		//}
-//		if(this.colorArray[this.mouseDownGridX][this.mouseDownGridY] == Color.RED){
-//				this.colorArray[this.mouseDownGridX][this.mouseDownGridY] = Color.WHITE;
-//				this.repaint();	
-//				flags--;
-//			
-//		}	
-	}
-	
+
 
 	public void clear() {
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
@@ -305,12 +309,11 @@ public class MyPanel extends JPanel {
 
 				clickedGrids[i][j]=false;
 
-				clickedGrids[i][j] = false;
-
 			}
 		}
+
 	}
-	
+
 	public void labels() {
 		JLabel label;
 		for (int i = 1; i <= TOTAL_COLUMNS; i++) {
@@ -330,33 +333,48 @@ public class MyPanel extends JPanel {
 			}
 		}
 	}
-	
+
 	private boolean hasAdjacent(int x, int y){		
 		return adjacentMines[x][y]>0;		
 	}
-	
+
 	public void dominoEffect(int col, int row){
-		
+
 		for(int i = col-1;i<=col+1;i++){
 			for(int j = row-1;j<=row+1;j++){
 				System.out.println("indexes: "+ i+" "+j);
-				
-					if(isValid(i,j) && hasAdjacent(i,j) && !isMine(i,j) && !isClicked(i,j)){	
-						clickAT(i,j);
+
+				if(isValid(i,j) && hasAdjacent(i,j) && !isMine(i,j) && !isClicked(i,j)){	
+					clickAT(i,j);
+					if(colorArray[i][j] == Color.RED){
+						colorArray[i][j] = Color.RED;
+						//labels[i][j].setVisible(true);
+					}
+					else{
 						colorArray[i][j] = Color.LIGHT_GRAY;
 						labels[i][j].setVisible(true);
+
 					}
-					else if(isValid(i,j) && !isMine(i,j) && !isClicked(i,j)){	
-						clickAT(i,j);
+
+				}
+				else if(isValid(i,j) && !isMine(i,j) && !isClicked(i,j)){	
+					clickAT(i,j);
+					if(colorArray[i][j] == Color.RED){
+						colorArray[i][j] = Color.RED;
+						dominoEffect(i,j);
+					}
+					else{
 						colorArray[i][j] = Color.LIGHT_GRAY;
 						dominoEffect(i,j);
 					}
+
+				}
 
 			}
 		}
 		repaint();
 	}
-	
+
 	public void clickAT(int col, int row){
 		clickedGrids[col][row]=true;		
 	}
@@ -370,15 +388,15 @@ public class MyPanel extends JPanel {
 	public void setLabels(JLabel[][] labels) {
 		this.labels = labels;
 	}
-	
+
 	public JLabel getLabelAt(int col, int row) {
 		return labels[col][row];
 	}
-	
+
 	public void setLabelAt(int col, int row, JLabel newLabel) {
 		labels[col][row] = newLabel;
 	}
-	
+
 	public boolean isFinished() {
 
 		for (int i = 0; i < TOTAL_COLUMNS; i++) {
@@ -390,7 +408,38 @@ public class MyPanel extends JPanel {
 		}
 		return true;
 	}
-	
+
+	public void paintMinesHack(){		
+		for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+			for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+				if(mines[i][j] == 1){
+					if(colorArray[i][j]==Color.WHITE){
+						colorArray[i][j] = Color.BLACK;							
+					}
+					else{
+						colorArray[i][j] = Color.WHITE;							
+					}
+				}					
+			}
+		}		
+		repaint();			
+	}
+
+	public void paintMines(){
+		for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
+			for(int j = 0; j < (MyPanel.getTotalRows()); j++){
+				Color black = Color.BLACK;
+
+				if(mines[i][j] == 1){
+					colorArray[i][j] = black;
+					repaint();
+					endGameResult(false);
+				}
+
+			}
+		}
+	}
+
 	public void endGameResult(boolean winOrLose) {
 		if (winOrLose) {
 			JLabel label = new JLabel("Congratulations, you won!", JLabel.CENTER);
@@ -400,15 +449,14 @@ public class MyPanel extends JPanel {
 			for(int i = 0; i < (MyPanel.getTotalColumns()); i++){
 				for(int j = 0; j < (MyPanel.getTotalRows()); j++){
 					Color black = Color.BLACK;
-
 					if(this.mines[i][j] == 1){
-						this.colorArray[i][j] = black;
-						this.repaint();
+						this.colorArray[i][j] = black;						
 					}
-
 				}
-
 			}
+			this.repaint();//
+
+
 		}
 		else {
 			JLabel label = new JLabel("Sorry, try again.", JLabel.CENTER);
@@ -416,10 +464,10 @@ public class MyPanel extends JPanel {
 			add(label);
 			label.setLocation(10,10);
 		}
-		
+
 		JLabel resetMessege = new JLabel("Reset", JLabel.CENTER);
 		resetMessege.setSize(40, 40);
 		add(resetMessege);
 		resetMessege.setLocation(180,350);
 	}
- }
+}
